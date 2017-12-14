@@ -1,4 +1,4 @@
-package net.sjl;
+package net.sjl.concurrency;
 
 import java.util.concurrent.*;
 import org.junit.*;
