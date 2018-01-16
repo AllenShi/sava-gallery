@@ -1,55 +1,50 @@
 package net.sjl.k8s;
 
-import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.api.model.NamespaceBuilder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.fabric8.kubernetes.api.model.ContainerBuilder;
 import io.fabric8.kubernetes.api.model.Job;
-import io.fabric8.kubernetes.api.model.JobStatus;
+import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.NamespaceBuilder;
 import io.fabric8.kubernetes.api.model.Quantity;
 import io.fabric8.kubernetes.api.model.ReplicationController;
-import io.fabric8.kubernetes.api.model.ReplicationControllerBuilder;
 import io.fabric8.kubernetes.api.model.ResourceQuota;
 import io.fabric8.kubernetes.api.model.ResourceQuotaBuilder;
-import io.fabric8.kubernetes.api.model.Status;
 import io.fabric8.kubernetes.client.APIGroupNotAvailableException;
-import io.fabric8.kubernetes.client.Config;
-import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientException;
 import io.fabric8.kubernetes.client.Watch;
 import io.fabric8.kubernetes.client.Watcher;
-import io.fabric8.kubernetes.client.internal.SerializationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.fabric8.kubernetes.client.Watcher.Action;
 
-import static io.fabric8.kubernetes.client.Watcher.Action.ERROR;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-/**
- * https://github.com/fabric8io/kubernetes-client
- * 
- * @author mobile
- *
- */
-
-public class FabricExample {
-	private static final Logger logger = LoggerFactory.getLogger(FabricExample.class);
-
-	public static void main(String[] args) {
-		/*
-		String master = "https://localhost:8443/";
-		if (args.length == 1) {
-			master = args[0];
+public class JobStatusNotifier {
+	private static final Logger logger = LoggerFactory.getLogger(JobStatusNotifier.class);
+	
+	private static JobStatusNotifier instance = null;
+	
+	private List<JobStatusObserver> observers = null;
+	private String jobNameSpace = "default";
+	
+	public JobStatusNotifier() {
+		this(null);
+	}
+	
+	public JobStatusNotifier(String jobNameSpace) {
+		this.observers = new ArrayList<>();
+		if(jobNameSpace != null && !jobNameSpace.isEmpty()) {
+			this.jobNameSpace = jobNameSpace;
 		}
-		Config config = new ConfigBuilder().withMasterUrl(master).build();
-		final KubernetesClient client = new DefaultKubernetesClient(config);
-		*/
-
+	}
+	
+	public void watch() {
+		
 		try (final KubernetesClient client = new DefaultKubernetesClient()) {
 			try (Watch watch = client.replicationControllers().inNamespace("thisisatest").withResourceVersion("0")
 					.watch(new Watcher<ReplicationController>() {
@@ -151,8 +146,10 @@ public class FabricExample {
 				}
 			}
 		}
+		
 	}
-
+	
+	
 	private static void log(String action, Object obj) {
 		logger.info("{}: {}", action, obj);
 	}
@@ -160,4 +157,6 @@ public class FabricExample {
 	private static void log(String action) {
 		logger.info(action);
 	}
+	
+
 }
