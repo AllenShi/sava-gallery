@@ -11,7 +11,7 @@ import lombok.Data;
 @Table(name = "JOB_DEFINITION")
 public class JobDefinition extends AbstractJobModel {
 
-	@Column(name = "JOB_DEF_NAME", nullable = false)
+	@Column(name = "JOB_DEF_NAME", nullable = false, unique = true)
 	private String name;
 	
 	@Column(name = "JOB_DEF_DESC", nullable = true)

@@ -16,16 +16,16 @@ import lombok.Data;
 public class JobDAGEdgeDefinition extends AbstractJobModel {
 	
 	@OneToOne
-	@JoinColumn(name = "DAG_EDGE_DEF_SRC_ID")
+	@JoinColumn(name = "JOB_DAG_EDGE_DEF_SRC_ID")
 	private JobDefinition sourceJob;
 	
 	@OneToOne
-	@JoinColumn(name = "DAG_EDGE_DEF_TGT_ID")
+	@JoinColumn(name = "JOB_DAG_EDGE_DEF_TGT_ID")
 	private JobDefinition targetJob;
 	
-	// @ManyToOne(fetch = FetchType.LAZY)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DAG_DEF_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	// @ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_DAG_DEF_ID", nullable = false)
 	private JobDAGDefinition jobDAGDefinition;
 	
 

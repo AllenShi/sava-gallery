@@ -1,7 +1,7 @@
 package net.sjl.k8s.model;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JobHistoryRepository  extends PagingAndSortingRepository<JobHistory, String> {
+public interface JobHistoryRepository  extends JpaRepository<JobHistory, String> {
 
 }

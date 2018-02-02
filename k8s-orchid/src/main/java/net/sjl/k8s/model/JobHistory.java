@@ -19,22 +19,20 @@ import lombok.Data;
 @Table(name = "JOB_HISTORY")
 public class JobHistory extends AbstractJobModel {
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_DAG_ID", nullable = false)
-	private JobDAG jobDAG;
+	@Column(name = "JOB_NAME")
+	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_DEF_ID")
-	private JobDefinition jobDefinition;
+	@Column(name = "JOB_DESC")
+	private String description;
 	
 	@NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "JOB_START_TIME")
+    @Column(name = "JOB_START_TIME", nullable = false)
     private Date startTime = new Date();  
 	
 	@NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "JOB_END_TIME")
+    @Column(name = "JOB_END_TIME", nullable = false)
     private Date endTime = new Date();
 	
 	@Column(name = "JOB_STATE")
@@ -48,5 +46,13 @@ public class JobHistory extends AbstractJobModel {
 	
 	@Column(name = "JOB_ENV", nullable = true)
 	private String jsonEnv;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "JOB_DAG_ID", nullable = false)
+	private JobDAG jobDAG;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "JOB_DEF_ID")
+	private JobDefinition jobDefinition;
 	
 }

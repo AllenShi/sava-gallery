@@ -24,13 +24,14 @@ import lombok.EqualsAndHashCode;
 @Table(name = "JOB_DAG")
 public class JobDAG extends AbstractJobModel {
 
+	@Column(name = "JOB_DAG_NAME", nullable = false)
 	private String name;
-	private String desc;
+	
+	@Column(name = "JOB_DAG_DESC", nullable = true)
+	private String description;
+	
+	@Column(name = "JOB_DAG_STATE", nullable = false)
 	private JobDAGState state;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_DAG_DEF_ID", nullable = false)
-	private JobDAGDefinition dagDefinition;
 	
 	@NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,13 +42,14 @@ public class JobDAG extends AbstractJobModel {
     @Column(name = "JOB_DAG_END_TIME")
     private Date endTime = new Date(); 
 	
-	@Column(name = "JOB_DAG_STATE")
-	private JobDAGState jobDAGState;
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jobDAG")
 	private Set<Job> jobQueue;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jobDAG")
 	private List<JobHistory> jobHistories;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "JOB_DAG_DEF_ID", nullable = false)
+	private JobDAGDefinition dagDefinition;
 
 }

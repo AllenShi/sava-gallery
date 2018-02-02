@@ -15,8 +15,6 @@ public class Scheduler implements JobStatusObserver {
 	}
 	
 	public void dispatch(JobDAG jobDAG) {
-		
-		
 	}
 	
 	
