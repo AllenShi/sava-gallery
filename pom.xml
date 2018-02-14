@@ -15,6 +15,7 @@
     <module>annotation-daisy</module>
     <module>dsrpt-epiphyllum</module>
     <module>alg-wintersweet</module>
+    <module>spring-cactus</module>
   </modules>
 
   <dependencyManagement>
