@@ -8,8 +8,11 @@ public class ZeroOneKnapsack {
   private int[] values;
   private int capacity;
   private int itemsNum;
-  private boolean[] choosen;
+  private boolean[][] solution;
+  private boolean[] taken;
   private int[][] maxValues;
+  private int maxWeight;
+  private int maxValue;
 
   public ZeroOneKnapsack(int[] weights, int[] values, int capacity) {
     assert(weights != null && weights.length > 0);
@@ -21,9 +24,13 @@ public class ZeroOneKnapsack {
     this.values = values;
     this.capacity = capacity;
     this.itemsNum = weights.length;
-    choosen = new boolean[itemsNum];
-    for(int i = 0; i < itemsNum; i++) {
-      choosen[i] = false;
+    this.solution = new boolean[itemsNum + 1][capacity + 1];
+    this.taken = new boolean[itemsNum];
+    
+    for(int i = 0; i <= itemsNum; i++) {
+      for(int w = 0; w <= capacity; w++) {
+        solution[i][w] = false;
+      }
     }
     maxValues = new int[itemsNum + 1][capacity + 1];
   }
@@ -46,21 +53,33 @@ public class ZeroOneKnapsack {
             maxValues[i][w] = maxValues[i-1][w];
           } else {
             maxValues[i][w] = maxValues[i-1][w-weights[i - 1]] + values[i - 1];
-            choosen[i - 1] = true;
+            solution[i][w] = true;
           }
         } 
       }
     }
 
-    return maxValues[itemsNum][capacity];
+    maxWeight = 0;
+    for(int i = itemsNum, w = capacity; i > 0; i--) {
+      if(solution[i][w]) {
+        taken[i - 1] = true;
+        w -= weights[i - 1];
+        maxWeight += weights[i - 1];
+      } else {
+        taken[i - 1] = false;
+      }
+    }
+
+    maxValue = maxValues[itemsNum][capacity];
+    return maxValue;
 
   } 
 
   public void printSolution() {
-    System.out.println("The capacity is " + capacity);
+    System.out.println("The capacity is " + capacity + " and max weight is " + maxWeight + " and max value is " + maxValue);
     for(int i = 0; i < itemsNum; i++) {
-      if(choosen[i]) {
-        System.out.println("The item " + i + " (" + weights[i] + ", " + values[i] + ") is choosen");
+      if(taken[i]) {
+        System.out.println("    The item " + i + " (" + weights[i] + ", " + values[i] + ") is choosen in solution");
       }
     }
   }
