@@ -1,4 +1,4 @@
-package net.sjl.concurrency;
+package net.sjl.fragrans.test.concurrency;
 
 import java.util.concurrent.*;
 import org.junit.*;

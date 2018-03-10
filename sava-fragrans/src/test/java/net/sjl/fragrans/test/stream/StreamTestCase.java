@@ -1,4 +1,4 @@
-package net.sjl.stream;
+package net.sjl.fragrans.test.stream;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
