@@ -55,7 +55,7 @@ public class YAMLTest {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("example2.yml").getFile());
 		
-		String yamlPath = "/shared_configurations";
+		String yamlPath = "/shared_configurations/ECC_BASE_DIR";
 		String value = "";
 		try {
 			value = JacksonYAML.readYAMLPath(new BufferedInputStream(new FileInputStream(file)), yamlPath);

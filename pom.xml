@@ -11,11 +11,10 @@
   <modules>
     <module>sava-fragrans</module>
     <module>k8s-orchid</module>
-    <module>aop-rosemary</module>
+    <module>spring-rosemary</module>
     <module>annotation-daisy</module>
     <module>dsrpt-epiphyllum</module>
     <module>alg-wintersweet</module>
-    <module>spring-cactus</module>
   </modules>
 
   <dependencyManagement>
