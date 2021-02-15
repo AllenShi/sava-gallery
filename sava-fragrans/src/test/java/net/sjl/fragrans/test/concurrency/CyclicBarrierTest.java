@@ -23,5 +23,12 @@ public class CyclicBarrierTest {
     CyclicBarrierRunnable barrierRunnable2 = new CyclicBarrierRunnable (barrier1, barrier2);
     new Thread (barrierRunnable1).start ();
     new Thread (barrierRunnable2).start ();
+    
+    try {
+		Thread.currentThread().sleep(30000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 }

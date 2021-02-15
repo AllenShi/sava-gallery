@@ -34,7 +34,7 @@ public class Property {
 		return "data type is " + dataType + ", value is " + value;
 	}
 	
-	private static class PropertyJsonDeserializer extends JsonDeserializer<Property> {
+	public static class PropertyJsonDeserializer extends JsonDeserializer<Property> {
 
 		@Override
 		public Property deserialize(JsonParser p, DeserializationContext ctxt)
